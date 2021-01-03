@@ -1,32 +1,34 @@
 <template>
   <section class="todo_form">
-    <h1>Todoリスト</h1>
     <DispTaskRadio />
-    <section class="disp_task_lists">
-      <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>コメント</th>
-            <th>状態</th>
-            <th>削除</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(task, taskIndex) in todos" :key="taskIndex">
-            <td>{{ task.id }}</td>
-            <td>{{ task.name }}</td>
-            <td>{{ task.state }}</td>
-            <td>
-              <button class="button is-danger">{{ task.delete }}</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+    <section class="field">
+      <section class="disp_task_lists">
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>コメント</th>
+              <th>状態</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(task, taskIndex) in todos" :key="taskIndex">
+              <td>{{ task.id }}</td>
+              <td>{{ task.name }}</td>
+              <td>
+                <button class="button is-primary">{{ task.state }}</button>
+              </td>
+              <td>
+                <button class="button is-danger">{{ task.delete }}</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
     </section>
     <h2>新規タスクの追加</h2>
     <InptTaskText
-      class="input is-size-10"
+      class="input"
       inptActGuide="新しいタスクを入力してください"
       :value="inptTask"
       @input="createTask"
@@ -63,4 +65,12 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+th {
+  padding-right: 10px;
+}
+td {
+  padding-top: 10px;
+  padding-right: 10px;
+}
+</style>

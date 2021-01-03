@@ -19,9 +19,10 @@ const getters = {
 
 const mutations = {
     addNewTask(state) {
-        if (!state.inptTask) { 
+        const inptTaskChk = /\S/g;
+        if (!state.inptTask || !inptTaskChk.test(state.inptTask)) { 
             return;
-        } 
+        }
         state.indexTaskCnt++;
         state.task = {
             id: state.indexTaskCnt,

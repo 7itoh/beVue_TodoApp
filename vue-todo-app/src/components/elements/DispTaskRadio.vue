@@ -6,7 +6,7 @@
       id="task_all"
       value="all"
     />
-    <label for="all">All</label>
+    <label for="all">すべて</label>
     <input
       type="radio"
       name="disp_task_state_radio"
@@ -30,4 +30,8 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+label {
+  padding-right: 10px;
+}
+</style>
