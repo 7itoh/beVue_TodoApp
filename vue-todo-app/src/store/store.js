@@ -2,14 +2,7 @@ import { createStore } from 'vuex';
 
 const state = {
     todos: [],
-    taskColumn: {
-        id: '',
-        name: '',
-        state: '',
-        delete: '',
-    },
     inptTask: '',
-    indexTaskCnt: 0,
 };
 
 const getters = {
@@ -18,20 +11,8 @@ const getters = {
 };
 
 const mutations = {
-    addNewTask(state) {
-        const inptTaskChk = /\S/g;
-        if (!state.inptTask || !inptTaskChk.test(state.inptTask)) { 
-            return;
-        }
-        state.indexTaskCnt++;
-        state.task = {
-            id: state.indexTaskCnt,
-            name: state.inptTask,
-            state: '実行中',
-            delete: '削除',
-        }
-        state.inptTask = '';
-        state.todos.push(state.task);
+    setNewTask(state, newTask) { 
+        state.todos.push(newTask);
     },
     createTask(state, newTask) { 
         state.inptTask = newTask;
@@ -39,8 +20,8 @@ const mutations = {
 };
 
 const actions = {
-    addNewTask({ commit }, addTask) { 
-        commit('addNewTask', addTask.target.value);
+    setNewTask({ commit }, newTask) { 
+        commit('setNewTask', newTask);
     },
     createTask({ commit }, newTask) { 
         commit('createTask', newTask.target.value);

@@ -1,12 +1,12 @@
 <template>
-  <button class="input_new_task">{{ action }}</button>
+  <input type="text" :placeholder="placeholder" />
 </template>
 
 <script>
 export default {
-  name: "AddTaskBtn",
+  name: "InptText",
   props: {
-    action: String,
+    placeholder: String,
   },
 };
 </script>
