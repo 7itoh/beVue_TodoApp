@@ -71,6 +71,11 @@ import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "TodoForm",
+  data() {
+    return {
+      inptTask: "",
+    };
+  },
   components: {
     InptText,
     BaseButton,
@@ -79,13 +84,11 @@ export default {
   computed: {
     ...mapGetters({
       todos: "todos",
-      inptTask: "inptTask",
     }),
   },
   methods: {
     ...mapActions({
       setNewTask: "setNewTask",
-      createTask: "createTask",
     }),
     addNewTask() {
       let length = this.todos.length;
@@ -96,8 +99,11 @@ export default {
         state: "実行中",
         delete: "削除",
       };
-      this.inptTask = "";
+      this.msg = "";
       this.setNewTask(todo);
+    },
+    createTask(e) {
+      this.inptTask = e.target.value;
     },
     IsValue() {
       const inptTaskChk = /\S/g;
