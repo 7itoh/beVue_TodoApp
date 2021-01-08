@@ -99,7 +99,7 @@ export default {
         state: "実行中",
         delete: "削除",
       };
-      this.msg = "";
+      this.inptTask = "";
       this.setNewTask(todo);
     },
     createTask(e) {
