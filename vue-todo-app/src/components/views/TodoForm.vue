@@ -39,7 +39,7 @@
                 <button class="button is-primary">{{ todo.state }}</button>
               </td>
               <td>
-                <button class="button is-danger">{{ todo.delete }}</button>
+                <button class="button is-danger">削除</button>
               </td>
             </tr>
           </tbody>
@@ -50,8 +50,7 @@
     <InptText
       class="input"
       placeholder="新しいタスクを入力してください"
-      :value="inptTask"
-      @input="createTask"
+      v-model="inptTask"
     />
     <BaseButton
       class="button is-primary"
@@ -97,17 +96,13 @@ export default {
         id: length,
         name: this.inptTask,
         state: "実行中",
-        delete: "削除",
       };
       this.inptTask = "";
       this.setNewTask(todo);
     },
-    createTask(e) {
-      this.inptTask = e.target.value;
-    },
     IsValue() {
       const inptTaskChk = /\S/g;
-      return !this.inptTask || !inptTaskChk.test(this.inptTask) ? true : false;
+      return !this.inptTask || !inptTaskChk.test(this.inptTask);
     },
   },
 };

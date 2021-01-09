@@ -1,10 +1,15 @@
 <template>
-  <input type="text" :placeholder="placeholder" />
+  <input type="text" v-model="inptVal" :placeholder="placeholder" />
 </template>
 
 <script>
 export default {
   name: "InptText",
+  data() {
+    return {
+      inptVal: "",
+    };
+  },
   props: {
     placeholder: String,
   },
