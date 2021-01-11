@@ -39,7 +39,9 @@
                 <button class="button is-primary">{{ todo.state }}</button>
               </td>
               <td>
-                <button class="button is-danger">削除</button>
+                <button class="button is-danger" @click="delTask(todo)">
+                  削除
+                </button>
               </td>
             </tr>
           </tbody>
@@ -88,6 +90,7 @@ export default {
   methods: {
     ...mapActions({
       setNewTask: "setNewTask",
+      delTask: "delTask",
     }),
     addNewTask() {
       let length = this.todos.length;
