@@ -1,23 +1,23 @@
 import { createStore } from 'vuex';
 
 const state = {
-    msg : '',
+    todos: [],
 };
 
 const getters = {
-    msg: state => state.msg, 
+    todos: state => state.todos,
 };
 
 const mutations = {
-    updateMsg(state, newMessage) { 
-        state.msg = newMessage;
-    }
+    setNewTask(state, newTask) { 
+        state.todos.push(newTask);
+    },
 };
 
 const actions = {
-    updateMsg({ commit }, newMessage) { 
-        commit('updateMsg', newMessage);
-    }
+    setNewTask({ commit }, newTask) { 
+        commit('setNewTask', newTask);
+    },
 };
 
 const store = createStore({
