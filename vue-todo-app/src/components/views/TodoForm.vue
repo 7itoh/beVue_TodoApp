@@ -39,7 +39,7 @@
                 <button class="button is-primary">{{ todo.state }}</button>
               </td>
               <td>
-                <button class="button is-danger" @click="delTask(todo)">
+                <button class="button is-danger" @click="addDelTask(todo)">
                   削除
                 </button>
               </td>
@@ -102,6 +102,27 @@ export default {
       };
       this.inptTask = "";
       this.setNewTask(todo);
+    },
+    addDelTask(delTodo) {
+      const commitCheck = window.confirm(
+        `Delete the Task id: ${delTodo.id} name: ${delTodo.name} Are You OK?`
+      );
+      if (commitCheck) {
+        const taskFilter = this.todos.filter(
+          (todos) => todos.id !== delTodo.id
+        );
+        const resetTodos = [];
+        taskFilter.forEach((todo, id) => {
+          id = id === 0 ? 1 : id + 1;
+          const resetTodo = {
+            id: id,
+            name: todo.name,
+            state: todo.state,
+          };
+          resetTodos.push(resetTodo);
+        });
+        this.delTask(resetTodos);
+      }
     },
     IsValue() {
       const inptTaskChk = /\S/g;
