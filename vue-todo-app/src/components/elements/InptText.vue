@@ -1,5 +1,10 @@
 <template>
-  <input type="text" v-model="innerSearchText" :placeholder="placeholder" />
+  <input
+    type="text"
+    :value="inptValue"
+    @change="setInptTxt"
+    :placeholder="placeholder"
+  />
 </template>
 
 <script>
@@ -9,14 +14,9 @@ export default {
     placeholder: String,
     inptValue: String,
   },
-  computed: {
-    innerSearchText: {
-      get() {
-        return this.$props.inptValue;
-      },
-      set(newInptValue) {
-        this.$emit("input", newInptValue);
-      },
+  methods: {
+    setInptTxt(event) {
+      this.$emit("input", event.target.value);
     },
   },
 };

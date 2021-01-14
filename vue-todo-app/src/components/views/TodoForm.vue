@@ -52,7 +52,8 @@
     <InptText
       class="input"
       placeholder="新しいタスクを入力してください"
-      v-model="inptTask"
+      :value="inptTask"
+      @change="inptTask = $event.target.value"
     />
     <BaseButton
       class="button is-primary"
