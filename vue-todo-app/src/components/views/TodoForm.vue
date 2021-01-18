@@ -36,12 +36,7 @@
               <td>{{ todo.id }}</td>
               <td>{{ todo.name }}</td>
               <td>
-                <button
-                  class="button is-primary"
-                  @click="addChangeTaskState(todo)"
-                >
-                  {{ todo.state }}
-                </button>
+                <button class="button is-primary">{{ todo.state }}</button>
               </td>
               <td>
                 <button class="button is-danger" @click="addDelTask(todo)">
@@ -108,10 +103,6 @@ export default {
       };
       this.inptTask = "";
       this.setNewTask(todo);
-    },
-    addChangeTaskState(changeTodo) {
-      const changeState = changeTodo.state === "実行中" ? "完了" : "実行中";
-      changeTodo.state = changeState;
     },
     addDelTask(delTodo) {
       const commitCheck = window.confirm(
