@@ -1,17 +1,23 @@
 <template>
-  <input type="text" v-model="inptVal" :placeholder="placeholder" />
+  <input
+    type="text"
+    :value="inptValue"
+    @change="setInptTxt"
+    :placeholder="placeholder"
+  />
 </template>
 
 <script>
 export default {
   name: "InptText",
-  data() {
-    return {
-      inptVal: "",
-    };
-  },
   props: {
     placeholder: String,
+    inptValue: String,
+  },
+  methods: {
+    setInptTxt(event) {
+      this.$emit("input", event.target.value);
+    },
   },
 };
 </script>

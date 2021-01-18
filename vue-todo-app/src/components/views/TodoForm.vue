@@ -36,10 +36,17 @@
               <td>{{ todo.id }}</td>
               <td>{{ todo.name }}</td>
               <td>
-                <button class="button is-primary">{{ todo.state }}</button>
+                <button
+                  class="button is-primary"
+                  @click="addChangeTaskState(todo)"
+                >
+                  {{ todo.state }}
+                </button>
               </td>
               <td>
-                <button class="button is-danger">削除</button>
+                <button class="button is-danger" @click="addDelTask(todo)">
+                  削除
+                </button>
               </td>
             </tr>
           </tbody>
@@ -50,7 +57,8 @@
     <InptText
       class="input"
       placeholder="新しいタスクを入力してください"
-      v-model="inptTask"
+      :value="inptTask"
+      @change="inptTask = $event.target.value"
     />
     <BaseButton
       class="button is-primary"
@@ -88,6 +96,7 @@ export default {
   methods: {
     ...mapActions({
       setNewTask: "setNewTask",
+      delTask: "delTask",
     }),
     addNewTask() {
       let length = this.todos.length;
@@ -99,6 +108,31 @@ export default {
       };
       this.inptTask = "";
       this.setNewTask(todo);
+    },
+    addChangeTaskState(changeTodo) {
+      const changeState = changeTodo.state === "実行中" ? "完了" : "実行中";
+      changeTodo.state = changeState;
+    },
+    addDelTask(delTodo) {
+      const commitCheck = window.confirm(
+        `Delete the Task id: ${delTodo.id} name: ${delTodo.name} Are You OK?`
+      );
+      if (commitCheck) {
+        const taskFilter = this.todos.filter(
+          (todos) => todos.id !== delTodo.id
+        );
+        const resetTodos = [];
+        taskFilter.forEach((todo, id) => {
+          id = id === 0 ? 1 : id + 1;
+          const resetTodo = {
+            id: id,
+            name: todo.name,
+            state: todo.state,
+          };
+          resetTodos.push(resetTodo);
+        });
+        this.delTask(resetTodos);
+      }
     },
     IsValue() {
       const inptTaskChk = /\S/g;
