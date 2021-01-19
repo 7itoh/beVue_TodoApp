@@ -38,7 +38,7 @@
               <td>
                 <button
                   class="button is-primary"
-                  @click="addChangeTaskState(todo)"
+                  @click="changeTaskState(todo)"
                 >
                   {{ todo.state }}
                 </button>
@@ -109,7 +109,7 @@ export default {
       this.inptTask = "";
       this.setNewTask(todo);
     },
-    addChangeTaskState(changeTodo) {
+    changeTaskState(changeTodo) {
       const changeState = changeTodo.state === "実行中" ? "完了" : "実行中";
       changeTodo.state = changeState;
     },
