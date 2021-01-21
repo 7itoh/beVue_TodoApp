@@ -138,7 +138,11 @@ export default {
     changeTaskState(changeTodo) {
       const changeState = changeTodo.state === "実行中" ? "完了" : "実行中";
       changeTodo.state = changeState;
-      this.setDispTodos(this.todos);
+      if (this.radioInpt === "mainte" || this.radioInpt === "complete") {
+        this.setDispTodos(this.todos);
+      } else {
+        return;
+      }
     },
     addDelTask(delTodo) {
       const commitCheck = window.confirm(
