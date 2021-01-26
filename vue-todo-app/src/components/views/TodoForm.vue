@@ -3,22 +3,9 @@
     <section>
       <RadioButton
         name="disp_state_radio"
-        id="all"
-        value="all"
-        action="すべて"
-        checked="checked"
-      />
-      <RadioButton
-        name="disp_state_radio"
-        id="mainte"
-        value="mainte"
-        action="作業中"
-      />
-      <RadioButton
-        name="disp_state_radio"
-        id="complete"
-        value="complete"
-        action="完了"
+        :value="radioVal"
+        :options="options"
+        @change="changeDispTodos"
       />
     </section>
     <section class="field">
@@ -32,7 +19,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(todo, todoIndex) in todos" :key="todoIndex">
+            <tr v-for="(todo, todoIndex) in sortTodos" :key="todoIndex">
               <td>{{ todo.id }}</td>
               <td>{{ todo.name }}</td>
               <td>
@@ -81,6 +68,26 @@ export default {
   data() {
     return {
       inptTask: "",
+      radioVal: "",
+      radioInpt: "",
+      sortTodos: [],
+      options: [
+        {
+          label: "すべて",
+          value: "all",
+          checked: true,
+        },
+        {
+          label: "作業中",
+          value: "mainte",
+          checked: false,
+        },
+        {
+          label: "完了",
+          value: "complete",
+          checked: false,
+        },
+      ],
     };
   },
   components: {
@@ -98,6 +105,20 @@ export default {
       setNewTask: "setNewTask",
       delTask: "delTask",
     }),
+    changeDispTodos(e) {
+      this.radioInpt = e.target.value;
+      this.setDispTodos(this.todos);
+    },
+    setDispTodos(dispTodosVal) {
+      let sortVal = [];
+      if (this.radioInpt === "mainte" || this.radioInpt === "complete") {
+        const chkVal = this.radioInpt !== "mainte" ? "実行中" : "完了";
+        sortVal = dispTodosVal.filter((todos) => todos.state !== chkVal);
+      } else if (this.radioInpt === "all") {
+        sortVal = dispTodosVal;
+      }
+      this.sortTodos = sortVal;
+    },
     addNewTask() {
       let length = this.todos.length;
       length = length === 0 ? 1 : this.todos.length + 1;
@@ -108,10 +129,20 @@ export default {
       };
       this.inptTask = "";
       this.setNewTask(todo);
+      if (!this.radioInpt) {
+        this.sortTodos = this.todos;
+      } else {
+        this.setDispTodos(this.todos);
+      }
     },
     changeTaskState(changeTodo) {
       const changeState = changeTodo.state === "実行中" ? "完了" : "実行中";
       changeTodo.state = changeState;
+      if (this.radioInpt === "mainte" || this.radioInpt === "complete") {
+        this.setDispTodos(this.todos);
+      } else {
+        return;
+      }
     },
     addDelTask(delTodo) {
       const commitCheck = window.confirm(
@@ -132,6 +163,7 @@ export default {
           resetTodos.push(resetTodo);
         });
         this.delTask(resetTodos);
+        this.setDispTodos(this.todos);
       }
     },
     IsValue() {

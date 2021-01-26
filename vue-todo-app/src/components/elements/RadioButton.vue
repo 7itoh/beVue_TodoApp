@@ -1,25 +1,29 @@
 <template>
-  <label :for="id">
-    <input
-      type="radio"
-      :name="name"
-      :id="id"
-      :value="value"
-      :checked="checked"
-    />
-    {{ action }}</label
-  >
+  <fieldset>
+    <label v-for="(option, index) in options" :key="index">
+      <input
+        type="radio"
+        :name="name"
+        :value="option.value"
+        :checked="option.checked"
+        @change="updateRadioValue"
+      />{{ option.label }}
+    </label>
+  </fieldset>
 </template>
 
 <script>
 export default {
   name: "RadioButton",
   props: {
-    name: String,
-    id: String,
-    value: String,
-    action: String,
-    checked: String,
+    value: { type: String, required: true },
+    options: { type: Array, required: true },
+    name: { type: String, required: true },
+  },
+  methods: {
+    updateRadioValue(e) {
+      this.$emit("input", e.target.value);
+    },
   },
 };
 </script>
